@@ -2,7 +2,7 @@
 	(stiva A B C)
 	(stiva D E F)
 	
-    (stivaf E B)
+    	(stivaf E B)
 	(stivaf A F D)
 	(stivaf C)
 )
