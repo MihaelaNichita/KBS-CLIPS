@@ -1,17 +1,14 @@
 (deffacts stare-initiala
 	(stiva A B C)
 	(stiva D E F)
-	;(stiva J K L)
 	
     (stivaf E B)
 	(stivaf A F D)
 	(stivaf C)
-	;(stivaf K L)
 )
 
 (defglobal ?*pas* = 1)
 
-;Creare scopuri
 (defrule bloc-pe-podea (declare (salience 17)) ;important prioritate
 	(stivaf $? ?bloc)
 	(stiva $? ?bloc ? $?)
@@ -43,7 +40,6 @@
 )
 
 
-;Executare scopuri & creare scopuri #2
 (defrule mutare-directa (declare (salience 10)) ; (A B C)(D E F)=>(C)(E B)(A F D) problema- scop muta A pe podea exista totusi in baza de fapte
 	?scop <- (scop muta ?bloc1 pe ?bloc2)
 	?stiva1 <- (stiva ?bloc1 $?rest1)
