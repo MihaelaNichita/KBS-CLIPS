@@ -2,7 +2,7 @@
 	(stiva A B C)
 	(stiva D E F)
 	
-    (stivaf E B)
+	(stivaf E B)
 	(stivaf A F D)
 	(stivaf C)
 )
@@ -16,6 +16,7 @@
 	(assert (scop muta ?bloc pe podea))
 	(printout t "#1 Se creeaza scopul: muta " ?bloc " pe podea " crlf)
 )
+
 (defrule bloc-pe-bloc (declare (salience 20)) ;important prioritate
 	(stivaf $? ?bloc ?sub $?)
 	(not (stiva $? ?bloc ?sub $?))
@@ -23,6 +24,7 @@
 	(assert (scop muta ?bloc pe ?sub))
 	(printout t "#1 Se creeaza scopul: muta " ?bloc " pe " ?sub crlf)	
 )
+
 (defrule sterge-stivaf (declare (salience 15))
 	?a<-(stivaf $? ?bloc ?sub $?)
 	(forall (stivaf $? ?bloc ?sub $?) (scop muta ?bloc pe ?sub))	
@@ -30,13 +32,22 @@
 	(retract ?a)
 	(printout t "#1 Se sterge o stivaf " crlf)	
 )
-(defrule singurul-bloc-pe-podea (declare (salience 20))
+
+(defrule singurul-bloc-pe-podea-creeaza-scop (declare (salience 20))
 	?a<-(stivaf ?bloc)
 	(not (stiva $? ?bloc))
 	=>
 	(retract ?a)
 	(assert (scop muta ?bloc pe podea))
 	(printout t "#1 Se creeaza scopul: muta " ?bloc " pe podea" crlf "& Se sterge o stivaf" crlf)	
+)
+
+(defrule singurul-bloc-pe-podea-nu-creeaza-scop (declare (salience 20))
+	?a<-(stivaf ?bloc)
+	(stiva $? ?bloc)
+	=>
+	(retract ?a)
+	(printout t " Se sterge o stivaf" crlf)	
 )
 
 
